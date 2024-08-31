@@ -1,0 +1,28 @@
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.container-form {
+  margin: 0 auto;
+  max-width: 25em;
+  padding: 2em 2.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.3em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.btn-primary {
+  width: 7em;
+  margin: 0 auto;
+  margin-top: 1em;
+}

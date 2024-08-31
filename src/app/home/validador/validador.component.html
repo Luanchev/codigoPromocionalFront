@@ -1,0 +1,55 @@
+<form [formGroup]="formAsignarCodigo" (ngSubmit)="validarDatos()">
+  <section class="container-form">
+
+    <!-- Titulo del formulario -->
+    <h1>Validación de descuento</h1>
+
+    <!-- implementación componente input material -->
+    <div class="full-width">
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ejm. pat@example.com">
+
+        <!-- Validación de errores del campo email -->
+        @if (formAsignarCodigo.get('email')?.hasError('email') && !formAsignarCodigo.get('email')?.hasError('required')) {
+          <mat-error>Por favor ingrese un correo valido</mat-error>
+        }
+        @if (formAsignarCodigo.get('email')?.hasError('required')) {
+          <mat-error>Correo es <strong>requerido</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="full-width">
+      <mat-form-field class="full-width">
+        <mat-label>Codigo</mat-label>
+        <input type="text" matInput formControlName="codigo" placeholder="ABC..">
+        <!-- Validación de errores del campo código -->
+        @if (formAsignarCodigo.get('codigo')?.hasError('required')) {
+          <mat-error>Código es <strong>requerido</strong></mat-error>
+        }
+        @else if (formAsignarCodigo.get('codigo')?.hasError('minlength')) {
+          <mat-error>Código no valido</mat-error>
+        }
+
+      </mat-form-field>
+    </div>
+
+    <!-- Implementación componente boton material -->
+    <div class="example-button-row">
+      <button class="btn-primary" type="submit" mat-stroked-button>Validar</button>
+    </div>
+  </section>
+</form>
+
+<!-- Modal de información de respuestas -->
+<ng-template #modalStatus>
+  <h2 mat-dialog-title>Estado de validación</h2>
+  <mat-dialog-content>
+    <p>{{statusDescription}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</ng-template>
+
