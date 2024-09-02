@@ -18,10 +18,14 @@ export class ValidadorComponent {
   // Variable para mensaje del modal
   statusDescription: string = "";
 
+  formValidarCodigo: FormGroup = this.fb.group({
+    codigo: ['', [Validators.required, Validators.minLength(3)]]
+  });
   formAsignarCodigo: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     codigo: ['', [Validators.required, Validators.minLength(3)]]
   });
+
 
   @ViewChild('modalStatus') modalStatusRef!: TemplateRef<any>;
 
@@ -31,7 +35,26 @@ export class ValidadorComponent {
     private dialog: MatDialog
   ) {
   }
+  //validar que el codigo si es un cupon valido
+  async validarCodigo() {
+    if (this.formValidarCodigo.invalid) return;
 
+    try {
+      const request = {
+        codigo: this.formValidarCodigo.get('codigo')?.value.trim()
+
+      };
+
+      // Llama a un endpoint específico para validar el código
+      const respuesta = await firstValueFrom(this.validadorService.validateCodigo(request));
+
+      this.abrirModal(`Validación exitosa. ${respuesta?.message}`);
+    } catch (e: any) {
+      this.abrirModal("Error al validar el código");
+    }
+  }
+
+  //validar que el cupon si se pueda asignar a los datos enviados
   async validarDatos() {
     // Validar que los campos del formulario sean validos.
     if (this.formAsignarCodigo.invalid) return;
