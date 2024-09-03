@@ -1,0 +1,47 @@
+<!-- Form para asignar el cupon-->
+<form [formGroup]="formValidarCodigo" (ngSubmit)="validarCodigo()">
+  <section class="container-form">
+
+    <!-- Titulo del formulario -->
+    <h1>Validación de cupon</h1>
+
+    <p>Ingrese su código promocional </p>
+    <!-- implementación componente input material -->
+    <div class="full-width">
+      <mat-form-field class="full-width">
+        <mat-label>Codigo</mat-label>
+        <input type="text" matInput formControlName="codigo" placeholder="ABC..">
+        <!-- Validación de errores del campo código -->
+        @if (formValidarCodigo.get('codigo')?.hasError('required')) {
+          <mat-error>Código es <strong>requerido</strong></mat-error>
+        }
+        @else if (formValidarCodigo.get('codigo')?.hasError('minlength')) {
+          <mat-error>Código no valido</mat-error>
+        }
+
+      </mat-form-field>
+
+      <!-- Implementación componente boton material , boton validar cupon-->
+
+      <div class="example-button-row">
+        <button class="btn-primary" type="submit" mat-stroked-button (click)="validarCodigo()">Validar</button>
+      </div>
+    </div>
+  </section>
+</form>
+
+<!-- Modal de información de respuestas -->
+<ng-template #modalStatus>
+  <h2 mat-dialog-title>Estado de validación</h2>
+  <mat-dialog-content>
+    <p>{{statusDescription}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <!--<button mat-button mat-dialog-close>Cerrar</button> -->
+    <button mat-button (click)="cerrarModal()">Cerrar</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+
+

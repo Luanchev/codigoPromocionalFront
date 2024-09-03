@@ -15,12 +15,10 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './validador.component.scss'
 })
 export class ValidadorComponent {
+
   // Variable para mensaje del modal
   statusDescription: string = "";
 
-  formValidarCodigo: FormGroup = this.fb.group({
-    codigo: ['', [Validators.required, Validators.minLength(3)]]
-  });
   formAsignarCodigo: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     codigo: ['', [Validators.required, Validators.minLength(3)]]
@@ -34,25 +32,10 @@ export class ValidadorComponent {
     private validadorService: ValidadorService,
     private dialog: MatDialog
   ) {
+
   }
-  //validar que el codigo si es un cupon valido
-  async validarCodigo() {
-    if (this.formValidarCodigo.invalid) return;
 
-    try {
-      const request = {
-        codigo: this.formValidarCodigo.get('codigo')?.value.trim()
 
-      };
-
-      // Llama a un endpoint específico para validar el código
-      const respuesta = await firstValueFrom(this.validadorService.validateCodigo(request));
-
-      this.abrirModal(`Validación exitosa. ${respuesta?.message}`);
-    } catch (e: any) {
-      this.abrirModal("Error al validar el código");
-    }
-  }
 
   //validar que el cupon si se pueda asignar a los datos enviados
   async validarDatos() {
@@ -71,10 +54,14 @@ export class ValidadorComponent {
 
       const respuesta = await firstValueFrom(this.validadorService.validateData(request));
 
-      // this.abrirModal(respuesta?.message || "Se presento novedad en el consumo del servicio");
-      this.abrirModal(`Se relaciono correctamente la información. ${respuesta?.message}`);
+      this.abrirModal(`Se relaciono correctamente la información. `);
+      // Restablecer el formulario
+      this.formAsignarCodigo.reset();
 
     } catch (e: any) {
+      // Restablecer el formulario
+      this.formAsignarCodigo.reset();  // Borra todos los campos del formulario
+
       // this.abrirModal(e.error?.message);
       this.abrirModal("Validar información suministrada");
     }

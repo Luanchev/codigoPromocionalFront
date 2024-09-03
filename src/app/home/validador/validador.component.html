@@ -1,43 +1,11 @@
 <!-- Form para asignar el cupon-->
-<form [formGroup]="formValidarCodigo" (ngSubmit)="validarDatos()">
-  <section class="container-form">
-
-    <!-- Titulo del formulario -->
-    <h1>Validación de cupon</h1>
-
-    <!-- implementación componente input material -->
-    <div class="full-width">
-      <mat-form-field class="full-width">
-        <mat-label>Codigo</mat-label>
-        <input type="text" matInput formControlName="codigo" placeholder="ABC..">
-        <!-- Validación de errores del campo código -->
-        @if (formValidarCodigo.get('codigo')?.hasError('required')) {
-          <mat-error>Código es <strong>requerido</strong></mat-error>
-        }
-        @else if (formValidarCodigo.get('codigo')?.hasError('minlength')) {
-          <mat-error>Código no valido</mat-error>
-        }
-
-      </mat-form-field>
-
-      <!-- Implementación componente boton material , boton validar cupon-->
-
-      <div class="example-button-row">
-        <button class="btn-primary" type="submit" mat-stroked-button (click)="validarCodigo()">Validar</button>
-      </div>
-    </div>
-  </section>
-</form>
-
-
-
-<!-- Form para asignar el cupon-->
 <form [formGroup]="formAsignarCodigo" (ngSubmit)="validarDatos()">
   <section class="container-form">
 
     <!-- Titulo del formulario -->
     <h1>Asignar de descuento</h1>
 
+    <p>Ingrese su código promocional nuevamente y su email</p>
     <!-- implementación componente input material -->
     <div class="full-width">
       <mat-form-field class="full-width">

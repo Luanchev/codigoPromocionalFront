@@ -9,9 +9,9 @@ export class ValidadorService {
 
   constructor(private http: HttpClient) { }
 
-  // Método para validar código (si el endpoint es diferente)
-  validateCodigo(data: {codigo: string;}){
-    return this.http.post<any>(`${this.baseApi}/codigopromocional/validarCodigo`, data);
+  // Método para validar código S
+  validateCodigo(codigo: {codigo: string;}){
+    return this.http.post<any>(`${this.baseApi}/codigopromocional/validarcodigo`, codigo);
   }
 
   // Consulta y relaciona información de código y correo.
